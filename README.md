@@ -22,7 +22,7 @@ The IP addresses change from time to time. So, it’s vital to fetch and synchro
 Download:
 
 ```
-$ wget -O google-ip-updater.sh  http://bit.ly/google-ip-updater
+$ wget -O google-ip-ranges-updater.sh  http://bit.ly/google-ip-updater
 ```
 
 Edit the file and update `GOOGLE_IP_RANGES_FILE_PATH` bash variable to the appropriate path where the IPs list should be saved. Generally not required. (Optional)
