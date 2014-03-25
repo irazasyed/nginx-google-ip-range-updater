@@ -80,3 +80,7 @@ $ service cron restart
 ## License ##
 
 The MIT License - See License File.
+
+## Contributions ##
+
+Contributions are welcome!
