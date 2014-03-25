@@ -15,6 +15,7 @@ The IP addresses change from time to time. So, it’s vital to fetch and synchro
 * Nginx
 * [HttpRealIpModule](http://wiki.nginx.org/HttpRealIpModule)
 * bind-utils (CentOS for `nslookup`) - `yum -q -y install bind-utils`
+* Nginx should be compiled with IPv6 Support (`--with-ipv6`) to get the IPv6 IPs working.
 
 ## Installation ##
 
