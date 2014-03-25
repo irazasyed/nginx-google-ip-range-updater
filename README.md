@@ -2,7 +2,6 @@ Nginx Google IP Ranges Updater
 =============================
 
 ## Introduction ##
----
 
 If you use [Google PageSpeed Service](https://developers.google.com/speed/pagespeed/service) or any reverse proxy in front of Nginx (Varnish cache, PageSpeed service, Cloud DDOS proxy, CloudFlare, etc.), you will need to use [Nginx's HttpRealIpModule](http://wiki.nginx.org/HttpRealIpModule) which should be compiled at the time of Nginx installation or you can rebuild if you don't have it installed already and set the `set_real_ip_from` and `real_ip_header` to properly allow Nginx to see the visitor's real IP address and not the IP address of the reverse proxy or Google PageSpeed Service IP addresses in this case.
 
@@ -12,13 +11,13 @@ The IP addresses change from time to time. So, it’s vital to fetch and synchro
 
 
 ## Requirements ##
----
+
 * Nginx
 * [HttpRealIpModule](http://wiki.nginx.org/HttpRealIpModule)
 * bind-utils (CentOS for `nslookup`) - `yum -q -y install bind-utils`
 
 ## Installation ##
----
+
 
 Download:
 
@@ -44,7 +43,7 @@ $ ./google-ip-ranges-updater.sh
 It should now automatically create/update `google_ips.conf` file at `/usr/local/nginx/conf/conf.d/google_ips.conf` (Default path).
 
 ## Cron ##
----
+
 It is highly recommended to setup a cron job to automatically execute the script.
 
 If you want to update the Google IP Ranges every `24:00 hours` as `root` user you should add the following at the end of your system's `crontab` file:
@@ -68,11 +67,10 @@ It's also possible to set time intervals weekly or several times a month, a day 
 ```
 
 ## Author ##
----
+
 [Syed I.R](https://github.com/irazasyed) - [@irazasyed](https://twitter.com/irazasyed)
 
 
 ## License ##
----
 
 The MIT License - See License File.
