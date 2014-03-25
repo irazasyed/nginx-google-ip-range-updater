@@ -12,7 +12,7 @@
 #               <syed AT lukonet.com>
 #               <https://github.com/irazasyed>
 #
-# Version:      0.1.0 25-Mar-2014
+# Version:      1.0.0 25-Mar-2014
 #
 # Project URL:  https://github.com/irazasyed/nginx-google-ip-range-updater
 #
