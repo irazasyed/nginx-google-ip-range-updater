@@ -79,7 +79,7 @@ $ service cron restart
 
 ## License ##
 
-The MIT License - See License File.
+[MIT](http://opensource.org/licenses/MIT) &copy; [Syed I.R](https://github.com/irazasyed)
 
 ## Contributions ##
 
