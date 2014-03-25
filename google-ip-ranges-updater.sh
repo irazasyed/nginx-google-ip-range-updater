@@ -1,8 +1,26 @@
 #!/bin/bash
 
-# The MIT License (MIT)
+#------------------------------------------------------------------------------
+#                            Google IP Ranges Updater
+#------------------------------------------------------------------------------
 #
-# Copyright (c) 2014 Syed I.R - https://github.com/irazasyed
+# Description:  This script will automatically pull all Google IP ranges \
+#               and saves into the file. This script is for Nginx \
+#               and requires HttpRealipModule.
+#
+# Author:       Syed I.R
+#               <syed AT lukonet.com>
+#               <https://github.com/irazasyed>
+#
+# Version:      0.1.0 25-Mar-2014
+#
+# Project URL:  https://github.com/irazasyed/nginx-google-ip-range-updater
+#
+#------------------------------------------------------------------------------
+#                            The MIT License (MIT)
+#------------------------------------------------------------------------------
+#
+# Copyright (c) 2014 Syed I.R
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
