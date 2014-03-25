@@ -66,6 +66,12 @@ It's also possible to set time intervals weekly or several times a month, a day 
 30 02 1,8,15,22,28 * root /path/to/google-ip-ranges-updater.sh >/dev/null 2>&1
 ```
 
+Finally, Save the file and restart the `cron` service:
+
+```
+$ service cron restart
+```
+
 ## Author ##
 
 [Syed I.R](https://github.com/irazasyed) - [@irazasyed](https://twitter.com/irazasyed)
