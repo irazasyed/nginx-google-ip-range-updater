@@ -49,7 +49,7 @@ echo "# Google IP Ranges" > $GOOGLE_IP_RANGES_FILE_PATH
 echo "# Generated at $(date) by $0" >> $GOOGLE_IP_RANGES_FILE_PATH
 echo "" >> $GOOGLE_IP_RANGES_FILE_PATH
 
-subdomains="_spf _netblocks _netblocks2 _netblocks3"
+subdomains="_netblocks _netblocks2 _netblocks3"
 for subdomain in $subdomains
 do
     response=$(nslookup -q=TXT $subdomain.google.com 8.8.8.8)
