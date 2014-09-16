@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Nginx-google-ip-range-updater by irazasyed</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Nginx-google-ip-range-updater</h1>
+        <p>Google PageSpeed IP Ranges Updater for Nginx</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/irazasyed/nginx-google-ip-range-updater" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/irazasyed/nginx-google-ip-range-updater/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/irazasyed/nginx-google-ip-range-updater/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>
+<a name="nginx-google-ip-ranges-updater" class="anchor" href="#nginx-google-ip-ranges-updater"><span class="octicon octicon-link"></span></a>Nginx Google IP Ranges Updater</h1>
+
+<h2>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h2>
+
+<p>If you use <a href="https://developers.google.com/speed/pagespeed/service">Google PageSpeed Service</a> or any reverse proxy in front of Nginx (Varnish cache, PageSpeed service, Cloud DDOS proxy, CloudFlare, etc.), you will need to use <a href="http://wiki.nginx.org/HttpRealIpModule">Nginx's HttpRealIpModule</a> which should be compiled at the time of Nginx installation or you can rebuild if you don't have it installed already and set the <code>set_real_ip_from</code> and <code>real_ip_header</code> to properly allow Nginx to see the visitor's real IP address and not the IP address of the reverse proxy or Google PageSpeed Service IP addresses in this case.</p>
+
+<p>Google also explains this in their <a href="https://developers.google.com/speed/pagespeed/service/faq#clientip">Google PageSpeed Service FAQ</a>. They don't provide a convenient list of IP addresses though, you have to do some work as explained in '<a href="http://support.google.com/a/bin/answer.py?hl=en&amp;answer=60764">Google's IP addresses</a>' page. When you run the <code>nslookup</code> commands on that page you get first the list of netblocks then the list of Google IP addresses from each of those netblocks. </p>
+
+<p>The IP addresses change from time to time. So, it’s vital to fetch and synchronise them. This script does exactly that and automates the process, so you can set a cron job and let it automatically pull all <a href="https://support.google.com/a/answer/60764?hl=en">Google IP ranges</a> and update the file for you. Currently it fetches and updates both IPv4 and IPv6 Ranges.</p>
+
+<h2>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<ul>
+<li>Nginx</li>
+<li><a href="http://wiki.nginx.org/HttpRealIpModule">HttpRealIpModule</a></li>
+<li>bind-utils (CentOS for <code>nslookup</code>) - <code>yum -q -y install bind-utils</code>
+</li>
+<li>Nginx should be compiled with IPv6 Support (<code>--with-ipv6</code>) to get the IPv6 IPs working.</li>
+</ul><h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Download:</p>
+
+<pre><code>$ wget -qO google-ip-ranges-updater.sh  http://lk.gd/1qaTM9R
+</code></pre>
+
+<p>Edit the file and update <code>GOOGLE_IP_RANGES_FILE_PATH</code> bash variable to the appropriate path where the IPs list should be saved. Generally not required. (Optional)</p>
+
+<p>Set the script's file permissions to be executable by all users:</p>
+
+<pre><code>$ chmod a+x ./google-ip-ranges-updater.sh
+</code></pre>
+
+<p>Run:</p>
+
+<pre><code>$ ./google-ip-ranges-updater.sh
+</code></pre>
+
+<p>It should now automatically create/update <code>google_ips.conf</code> file at <code>/usr/local/nginx/conf/conf.d/google_ips.conf</code> (Default path).</p>
+
+<h2>
+<a name="cron" class="anchor" href="#cron"><span class="octicon octicon-link"></span></a>Cron</h2>
+
+<p>It is highly recommended to setup a cron job to automatically execute the script.</p>
+
+<p>If you want to update the Google IP Ranges every <code>24:00 hours</code> as <code>root</code> user you should add the following at the end of your system's <code>crontab</code> file:</p>
+
+<p><code>/etc/crontab</code>:</p>
+
+<pre><code># Google IP Ranges Automatic Updater
+# Every 24:00 hours at 04:00am UTC
+00 04 * * * root /path/to/google-ip-ranges-updater.sh &gt;/dev/null 2&gt;&amp;1
+</code></pre>
+
+<p>It's also possible to set time intervals weekly or several times a month, a day or even hours:</p>
+
+<pre><code># Every 30 minutes
+*/30 * * * * root /path/to/google-ip-ranges-updater.sh &gt;/dev/null 2&gt;&amp;1
+# or
+# Every 7 days at 02:30am UTC
+30 02 1,8,15,22,28 * root /path/to/google-ip-ranges-updater.sh &gt;/dev/null 2&gt;&amp;1
+</code></pre>
+
+<p>Finally, Save the file and restart the <code>cron</code> service:</p>
+
+<pre><code>$ service cron restart
+</code></pre>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p><a href="http://opensource.org/licenses/MIT">MIT</a> © <a href="https://github.com/irazasyed">Syed I.R</a></p>
+
+<h2>
+<a name="contributions" class="anchor" href="#contributions"><span class="octicon octicon-link"></span></a>Contributions</h2>
+
+<p>Contributions are welcome!</p>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/irazasyed">irazasyed</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-54567513-3");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
