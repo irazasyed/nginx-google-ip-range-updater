@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Nginx-google-ip-range-updater by irazasyed</title>
+    <title>Nginx Google IP Ranges Updater by irazasyed</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -17,7 +17,7 @@
   <body>
 
       <header>
-        <h1>Nginx-google-ip-range-updater</h1>
+        <h1>Nginx Google IP Ranges Updater</h1>
         <p>Google PageSpeed IP Ranges Updater for Nginx</p>
       </header>
 
@@ -39,15 +39,12 @@
         <ul></ul>
       </nav>
       <section>
-        <h1>
-<a name="nginx-google-ip-ranges-updater" class="anchor" href="#nginx-google-ip-ranges-updater"><span class="octicon octicon-link"></span></a>Nginx Google IP Ranges Updater</h1>
-
-<h2>
+        <h2>
 <a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
 <p>If you use <a href="https://developers.google.com/speed/pagespeed/service">Google PageSpeed Service</a> or any reverse proxy in front of Nginx (Varnish cache, PageSpeed service, Cloud DDOS proxy, CloudFlare, etc.), you will need to use <a href="http://wiki.nginx.org/HttpRealIpModule">Nginx's HttpRealIpModule</a> which should be compiled at the time of Nginx installation or you can rebuild if you don't have it installed already and set the <code>set_real_ip_from</code> and <code>real_ip_header</code> to properly allow Nginx to see the visitor's real IP address and not the IP address of the reverse proxy or Google PageSpeed Service IP addresses in this case.</p>
 
-<p>Google also explains this in their <a href="https://developers.google.com/speed/pagespeed/service/faq#clientip">Google PageSpeed Service FAQ</a>. They don't provide a convenient list of IP addresses though, you have to do some work as explained in '<a href="http://support.google.com/a/bin/answer.py?hl=en&amp;answer=60764">Google's IP addresses</a>' page. When you run the <code>nslookup</code> commands on that page you get first the list of netblocks then the list of Google IP addresses from each of those netblocks. </p>
+<p>Google also explains this in their <a href="https://developers.google.com/speed/pagespeed/service/faq#clientip">Google PageSpeed Service FAQ</a>. They don't provide a convenient list of IP addresses though, you have to do some work as explained in '<a href="http://support.google.com/a/bin/answer.py?hl=en&amp;answer=60764">Google's IP addresses</a>' page. When you run the <code>nslookup</code> commands as per the instructions on that page, you first get the list of netblocks then the list of Google IP addresses from each of those netblocks. </p>
 
 <p>The IP addresses change from time to time. So, it’s vital to fetch and synchronise them. This script does exactly that and automates the process, so you can set a cron job and let it automatically pull all <a href="https://support.google.com/a/answer/60764?hl=en">Google IP ranges</a> and update the file for you. Currently it fetches and updates both IPv4 and IPv6 Ranges.</p>
 
