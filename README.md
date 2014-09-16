@@ -23,7 +23,7 @@ The IP addresses change from time to time. So, it’s vital to fetch and synchro
 Download:
 
 ```
-$ wget -O google-ip-ranges-updater.sh  http://bit.ly/google-ip-updater
+$ wget -qO google-ip-ranges-updater.sh  http://lk.gd/1qaTM9R
 ```
 
 Edit the file and update `GOOGLE_IP_RANGES_FILE_PATH` bash variable to the appropriate path where the IPs list should be saved. Generally not required. (Optional)
@@ -72,11 +72,6 @@ Finally, Save the file and restart the `cron` service:
 ```
 $ service cron restart
 ```
-
-## Author ##
-
-[Syed I.R](https://github.com/irazasyed) - [@irazasyed](https://twitter.com/irazasyed)
-
 
 ## License ##
 
